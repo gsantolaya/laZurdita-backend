@@ -9,7 +9,7 @@ const saleSchema = new Schema({
         type: String,
         required: true,
     },
-    number: {
+    amount: {
         type: Number,
         required: true,
     },

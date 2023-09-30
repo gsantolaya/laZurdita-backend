@@ -19,14 +19,15 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
-    minlength: 8,
+  },
+  isActivated: {
+    type: Boolean,
+    default: true,
   },
   isAdmin: {
     type: Boolean,
     default: true,
-  },
-}, {
-  timestamps: true,
+  }
 });
 
 const User = model("User", userSchema);
