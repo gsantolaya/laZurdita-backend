@@ -3,10 +3,11 @@ const app = express();
 const PORT = process.env.PORT || 4050
 const cors = require('cors');
 const { initDBConnection } = require('./database/dbConnection');
-const userRoutes  = require('./routes/users.routes');
-const productRoutes  = require('./routes/products.routes');
-
-// const saleRoutes  = require('./routes/sales.routes');
+const usersRoutes  = require('./routes/users.routes');
+const productsRoutes  = require('./routes/products.routes');
+const clientsRoutes  = require('./routes/clients.routes');
+const salesRoutes  = require('./routes/sales.routes');
+const expensesRoutes  = require('./routes/expenses.routes');
 
 const morgan = require('morgan');
 require('dotenv').config();
@@ -20,10 +21,11 @@ if (process.env.DEV) {
 
 app.use(express.json())
 app.use(cors())
-app.use("/api/users", userRoutes)
-app.use("/api/products", productRoutes)
-
-// app.use("/api/sales", saleRoutes)
+app.use("/api/users", usersRoutes)
+app.use("/api/products", productsRoutes)
+app.use("/api/clients", clientsRoutes)
+app.use("/api/sales", salesRoutes)
+app.use("/api/expenses", expensesRoutes)
 
 app.get('/', (req, res)=>{
     res.send({ mensaje: "Bienvenido" })

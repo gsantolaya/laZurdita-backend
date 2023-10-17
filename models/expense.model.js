@@ -1,38 +1,43 @@
 const { Schema, model } = require("mongoose");
 
 const expenseSchema = new Schema({
-    Dsaleate: {
+    date: {
         type: Date,
         required: true,
     },
-    client: {
+    voucherNumber:{
         type: String,
         required: true,
+        default: "s/c"
     },
-    number: {
+    provider:{
+        type: String,
+        required: true
+    },
+    amount:{
         type: Number,
-        required: true,
+        required: true
     },
-    description: {
+    description:{
         type: String,
-        required: true,
+        required: true
     },
-    status: {
+    additionalDescription:{
         type: String,
-        required: true,
+        required: true
     },
-    unitPrice: {
+    unitPrice:{
         type: Number,
-        required: true,
+        required: true
     },
-    observation: {
+    wayToPay: {
         type: String,
         required: false,
     },
     payment: {
         type: Number,
         required: true,
-    },
+    }
 });
 
 const Expense = model("Expense", expenseSchema);

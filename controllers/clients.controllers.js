@@ -27,11 +27,15 @@ const getClientById = async (req, res) => {
 
 // Agregar un nuevo cliente
 const createClient = async (req, res) => {
+    console.log(req.body)
     try {
         const newClient = {
-
-            
-
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            phone: req.body.phone,
+            address: req.body.address,
+            category: req.body.category,
+            balance: req.body.balance
         }
         const client = await Clients.create(newClient);
         res.status(201).send({ mensaje: "Cliente agregado exitosamente", idClient: client._id });
@@ -58,8 +62,12 @@ const deleteClient = async (req, res) => {
 const editClient = async (req, res) => {
     const id = req.params.id;
     const newClientData = {
-
-        
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        phone: req.body.phone,
+        address: req.body.address,
+        category: req.body.category,
+        balance: req.body.balance
     }
     try {
         const updatedClient = await Clients.findByIdAndUpdate(id, newClientData, { new: true });
@@ -72,10 +80,27 @@ const editClient = async (req, res) => {
     }
 }
 
+// Modificar solo el saldo
+const editBalance = async (req, res) => {
+    const id = req.params.id
+    const newBalance = req.body.balance
+    try {
+        const client = await Clients.findById(id)
+        if (!client) {
+            return res.status(404).send({ mensaje: "No se encontró el cliente" })
+        }
+        client.balance = newBalance
+        await client.save()
+        res.status(200).send({ mensaje: "Saldo del cliente modificado con éxito", cliente: client })
+    } catch (error) {
+        res.status(500).send({ error: "Error interno del servidor" })
+    }
+}
 module.exports = {
     getClients,
     getClientById,
     createClient,
     deleteClient,
-    editClient
+    editClient,
+    editBalance
 }

@@ -29,13 +29,16 @@ const getSaleById = async (req, res) => {
 const createSale = async (req, res) => {
     try {
         const newSale = {
-            saleDate: req.body.saleDate,
+            user: req.body.user,
+            date: req.body.date,
             client: req.body.client,
+            type: req.body.type,
             amount: req.body.amount,
-            description: req.body.description,
-            status: req.body.status,
+            amountDescription: req.body.amountDescription,
+            product: req.body.product,
+            productStatus: req.body.productStatus,
             unitPrice: req.body.unitPrice,
-            observation: req.body.observation,
+            wayToPay: req.body.wayToPay,
             payment: req.body.payment
         }
         const sale = await Sales.create(newSale);
@@ -63,14 +66,21 @@ const deleteSale = async (req, res) => {
 const editSale = async (req, res) => {
     const id = req.params.id;
     const newSaleData = {
-        saleDate: req.body.saleDate,
+        user: req.body.user,
+        date: req.body.date,
         client: req.body.client,
+        type: req.body.type,
         amount: req.body.amount,
-        description: req.body.description,
-        status: req.body.status,
+        amountDescription: req.body.amountDescription,
+        product: req.body.product,
+        productStatus: req.body.productStatus,
         unitPrice: req.body.unitPrice,
-        observation: req.body.observation,
-        payment: req.body.payment
+        wayToPay: req.body.wayToPay,
+        payment: req.body.payment,
+        wayToPay: req.body.wayToPay,
+        payment: req.body.payment,
+        tip: req.body.tip,
+        status: req.body.status
     }
     try {
         const updatedSale = await Sales.findByIdAndUpdate(id, newSaleData, { new: true });

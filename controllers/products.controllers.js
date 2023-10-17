@@ -30,8 +30,9 @@ const createProduct = async (req, res) => {
     try {
         const newProduct = {
             type: req.body.type,
-            description: req.body.description,
-            value: req.body.value,
+            unitPrice: req.body.unitPrice,
+            retailPrice: req.body.retailPrice,
+            wholesalePrice: req.body.wholesalePrice,
             stock: req.body.stock,
         }
         const product = await Products.create(newProduct);
@@ -43,7 +44,6 @@ const createProduct = async (req, res) => {
 
 // Eliminar un producto
 const deleteProduct = async (req, res) => {
-    console.log('hola')
     const id = req.params.id;
     try {
         const product = await Products.findByIdAndDelete(id);
@@ -61,8 +61,9 @@ const editProduct = async (req, res) => {
     const id = req.params.id;
     const newProductData = {
         type: req.body.type,
-        description: req.body.description,
-        value: req.body.value,
+        unitPrice: req.body.unitPrice,
+        retailPrice: req.body.retailPrice,
+        wholesalePrice: req.body.wholesalePrice,
         stock: req.body.stock,
     }
     try {
@@ -75,11 +76,28 @@ const editProduct = async (req, res) => {
         res.status(500).send({ error: "Error interno del servidor" });
     }
 }
+// Modificar solo el stock
+const editStock = async (req, res) => {
+    const id = req.params.id
+    const newStock = req.body.stock
+    try {
+        const product = await Products.findById(id)
+        if (!product) {
+            return res.status(404).send({ mensaje: "No se encontró el producto" })
+        }
+        product.stock = newStock
+        await product.save()
+        res.status(200).send({ mensaje: "Stock del producto modificado con éxito", producto: product })
+    } catch (error) {
+        res.status(500).send({ error: "Error interno del servidor" })
+    }
+}
 
 module.exports = {
     getProducts,
     getProductById,
     createProduct,
     deleteProduct,
-    editProduct
+    editProduct,
+    editStock
 }
