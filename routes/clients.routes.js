@@ -16,22 +16,21 @@ const { validateErrors } = require("../middlewares/validateErrors");
 
 // Rutas 
 //Mostrar todos los productos
-
-router.get("/", getClients); //jwtValidation, 
+router.get("/", jwtValidation, getClients); 
 
 //Mostrar un producto por ID
-router.get("/:id", getClientById); //, jwtValidation
+router.get("/:id", jwtValidation, getClientById);
 
 //Crear un producto
-router.post("/", createClient);
+router.post("/", jwtValidation, createClient);
 
 //Eliminar un producto
-router.delete("/:id", deleteClient); //jwtValidation, 
+router.delete("/:id", jwtValidation, deleteClient);
 
 //Modificar todas las propiedades de un producto
-router.put("/:id", editClient);
+router.put("/:id", jwtValidation, editClient);
 
 //Modificar el saldo de un cliente
-router.patch("/:id/balance", editBalance)
+router.patch("/:id/balance", jwtValidation, editBalance)
 
 module.exports = router;

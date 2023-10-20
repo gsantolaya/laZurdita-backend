@@ -15,19 +15,18 @@ const { validateErrors } = require("../middlewares/validateErrors");
 
 // Rutas 
 //Mostrar todos los gastos
-
-router.get("/", getExpenses); //jwtValidation, 
+router.get("/", jwtValidation, getExpenses);
 
 //Mostrar un gasto por ID
-router.get("/:id", getExpenseById); //, jwtValidation
+router.get("/:id", jwtValidation, getExpenseById);
 
 //Crear un gasto
-router.post("/", createExpense);
+router.post("/", jwtValidation, createExpense);
 
 //Eliminar un gasto
-router.delete("/:id", deleteExpense); //jwtValidation, 
+router.delete("/:id", jwtValidation, deleteExpense);
 
 //Modificar todas las propiedades de un gasto
-router.put("/:id", editExpense);
+router.put("/:id", jwtValidation, editExpense);
 
 module.exports = router;

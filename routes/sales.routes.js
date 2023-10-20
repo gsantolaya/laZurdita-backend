@@ -15,19 +15,18 @@ const { validateErrors } = require("../middlewares/validateErrors");
 
 // Rutas 
 //Mostrar todas las ventas
-
-router.get("/", getSales); //jwtValidation, 
+router.get("/", jwtValidation, getSales);
 
 //Mostrar una venta por ID
-router.get("/:id", getSaleById); //, jwtValidation
+router.get("/:id", jwtValidation, getSaleById);
 
 //Crear una venta
-router.post("/", createSale);
+router.post("/", jwtValidation, createSale);
 
 //Eliminar una venta
-router.delete("/:id", deleteSale); //jwtValidation, 
+router.delete("/:id", jwtValidation, deleteSale);
 
 //Modificar todas las propiedades de una venta
-router.put("/:id", editSale);
+router.put("/:id", jwtValidation, editSale);
 
 module.exports = router;
