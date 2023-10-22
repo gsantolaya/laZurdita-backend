@@ -1,0 +1,5 @@
+# render.yaml
+
+web:
+  - buildCommand: npm install
+    buildDirectory: /laZurdita-backend

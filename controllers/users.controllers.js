@@ -34,8 +34,8 @@ const createUser = async(req, res)=>{
             lastName: req.body.lastName,
             email:  req.body.email,
             password:  passwordHash,
-            isActivated: req.body.isActivated || true,
-            isAdmin: req.body.isAdmin || true
+            isActivated: req.body.isActivated || false,
+            isAdmin: req.body.isAdmin || false
         }
         const user = Users.create(newUser)
         res.status(201).send({ mensaje: "Usuario creado con éxito", usuario: newUser })

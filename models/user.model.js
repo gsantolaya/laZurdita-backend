@@ -22,11 +22,11 @@ const userSchema = new Schema({
   },
   isActivated: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   isAdmin: {
     type: Boolean,
-    default: true,
+    default: false,
   }
 });
 
