@@ -46,38 +46,43 @@ const createUser = async(req, res)=>{
 }
 
 // Login de usuario
-const loginUser = async(req, res)=>{
+const loginUser = async (req, res) => {
     try {
-        const email = req.body.email
-        const userFind = await Users.findOne({email})
-        if(userFind){
-            const passwordEnterByUser = req.body.password
-            const passwordStoredInDB = userFind.password
-            const passwordMatch = bcrypt.compareSync(passwordEnterByUser, passwordStoredInDB)
-            if(passwordMatch){
-                const payload = {
-                    id: userFind._id,
-                    email: userFind.email,
-                    firstName: userFind.firstName,
-                    lastName: userFind.lastName,
-                    isActivated: userFind.isActivated,
-                    isAdmin: userFind.isAdmin
+        const email = req.body.email;
+        const userFind = await Users.findOne({ email });
+
+        if (userFind) {
+            const passwordEnterByUser = req.body.password;
+            const passwordStoredInDB = userFind.password;
+            const passwordMatch = bcrypt.compareSync(passwordEnterByUser, passwordStoredInDB);
+
+            if (passwordMatch) {
+                if (userFind.isActivated) {
+                    const payload = {
+                        id: userFind._id,
+                        email: userFind.email,
+                        firstName: userFind.firstName,
+                        lastName: userFind.lastName,
+                        isActivated: userFind.isActivated,
+                        isAdmin: userFind.isAdmin,
+                    };
+                    const token = jwt.sign(payload, process.env.SECRET_KEY, {
+                        expiresIn: "12h",
+                    });
+                    res.status(200).send({ mensaje: "Usuario logueado con éxito", token, ...payload });
+                } else {
+                    res.status(400).send({ mensaje: "Usuario no activado" });
                 }
-                const token = jwt.sign(payload, process.env.SECRET_KEY, 
-                { 
-                    expiresIn: "12h" 
-                })
-                res.status(200).send({ mensaje: "Usuario logueado con éxito", token, ...payload })
-            }else{
-                res.status(400).send({ mensaje: "Email o contraseña incorrectos" })
+            } else {
+                res.status(400).send({ mensaje: "Email o contraseña incorrectos" });
             }
-        }else{
-            res.status(400).send({ mensaje: "Email o contraseña incorrectos" })
+        } else {
+            res.status(400).send({ mensaje: "Email o contraseña incorrectos" });
         }
     } catch (error) {
-        res.send(error)
+        res.send(error);
     }
-}
+};
 
 //Modificar un usuario
 const editUser = async(req, res)=>{
