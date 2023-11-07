@@ -33,13 +33,8 @@ const createSale = async (req, res) => {
             date: req.body.date,
             client: req.body.client,
             type: req.body.type,
-            amount: req.body.amount,
-            amountDescription: req.body.amountDescription,
-            product: req.body.product,
-            productStatus: req.body.productStatus,
-            unitPrice: req.body.unitPrice,
-            wayToPay: req.body.wayToPay,
-            payment: req.body.payment
+            products: req.body.products,
+            status: req.body.status
         }
         const sale = await Sales.create(newSale);
         res.status(201).send({ mensaje: "Venta creada exitosamente", idSale: sale._id });
@@ -70,13 +65,7 @@ const editSale = async (req, res) => {
         date: req.body.date,
         client: req.body.client,
         type: req.body.type,
-        amount: req.body.amount,
-        amountDescription: req.body.amountDescription,
-        product: req.body.product,
-        productStatus: req.body.productStatus,
-        unitPrice: req.body.unitPrice,
-        wayToPay: req.body.wayToPay,
-        payment: req.body.payment,
+        products: req.body.products,
         wayToPay: req.body.wayToPay,
         payment: req.body.payment,
         tip: req.body.tip,

@@ -1,42 +1,46 @@
 const { Schema, model } = require("mongoose");
 
+const expenseItemSchema = new Schema({
+    amount: {
+        type: Number,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    additionalDescription: {
+        type: String,
+        required: true
+    },
+    unitPrice: {
+        type: Number,
+        required: true
+    }
+});
+
 const expenseSchema = new Schema({
     date: {
         type: Date,
-        required: true,
+        required: true
     },
-    voucherNumber:{
+    voucherNumber: {
         type: String,
         required: true,
         default: "s/c"
     },
-    provider:{
+    provider: {
         type: String,
         required: true
     },
-    amount:{
-        type: Number,
-        required: true
-    },
-    description:{
-        type: String,
-        required: true
-    },
-    additionalDescription:{
-        type: String,
-        required: true
-    },
-    unitPrice:{
-        type: Number,
-        required: true
-    },
+    items: [expenseItemSchema],
     wayToPay: {
         type: String,
-        required: false,
+        required: true
     },
     payment: {
         type: Number,
-        required: true,
+        required: true
     }
 });
 

@@ -3,10 +3,41 @@ const Client = require('./client.model')
 const Product = require('./product.model')
 const User = require('./user.model')
 
-const { Schema, model } = require("mongoose");
+const {
+    Schema,
+    model
+} = require("mongoose");
+
+const saleProductSchema = new Schema({
+    product: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: Product
+    },
+    amount: {
+        type: Number,
+        required: true,
+    },
+    amountDescription: {
+        type: String,
+        enum: ['unidad', 'docena'],
+        default: 'unidad',
+        required: true
+    },
+    productStatus: {
+        type: String,
+        enum: ['horneadas', 'congeladas'],
+        default: 'horneadas',
+        required: true
+    },
+    unitPrice: {
+        type: Number,
+        required: true
+    },
+})
 
 const saleSchema = new Schema({
-    user:{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: User
@@ -26,31 +57,7 @@ const saleSchema = new Schema({
         default: 'minorista',
         required: true
     },
-    amount: {
-        type: Number,
-        required: true,
-    },
-    amountDescription: {
-        type: String,
-        enum: ['unidad', 'docena'],
-        default: 'unidad',
-        required: true
-    },
-    product: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: Product
-    },
-    productStatus: {
-        type: String,
-        enum: ['horneadas', 'congeladas'],
-        default: 'horneadas',
-        required: true
-    },
-    unitPrice:{
-        type: Number,
-        required: true
-    },
+    products: [saleProductSchema],
     wayToPay: {
         type: String,
         enum: ['efectivo', 'mercadoPago', 'transferencia'],
@@ -64,7 +71,7 @@ const saleSchema = new Schema({
         type: Number,
         required: false,
     },
-    status:{
+    status: {
         type: String,
         enum: ['completed', 'pending'],
         default: 'pending',

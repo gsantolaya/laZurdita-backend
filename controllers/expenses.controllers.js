@@ -10,13 +10,14 @@ const getExpenses = async (req, res) => {
         res.status(500).send({ error: "Error interno del servidor" });
     }
 }
+
 // Obtener un gasto por ID
 const getExpenseById = async (req, res) => {
     try {
         const id = req.params.id;
         const expense = await Expenses.findById(id);
         if (!expense) {
-            return res.status(404).send({ error: "Venta no encontrada" });
+            return res.status(404).send({ error: "Gasto no encontrado" });
         }
         res.status(200).send(expense);
     } catch (error) {
@@ -31,15 +32,12 @@ const createExpense = async (req, res) => {
             date: req.body.date,
             voucherNumber: req.body.voucherNumber,
             provider: req.body.provider,
-            amount: req.body.amount,
-            description: req.body.description,
-            additionalDescription: req.body.additionalDescription,
-            unitPrice: req.body.unitPrice,
+            items: req.body.items,
             wayToPay: req.body.wayToPay,
             payment: req.body.payment
-        }
+            }
         const expense = await Expenses.create(newExpense);
-        res.status(201).send({ mensaje: "Venta creada exitosamente", idExpense: expense._id });
+        res.status(201).send({ mensaje: "Gasto creado exitosamente", idExpense: expense._id });
     } catch (error) {
         res.status(400).send({ error: "Solicitud incorrecta" });
     }
@@ -51,9 +49,9 @@ const deleteExpense = async (req, res) => {
     try {
         const expense = await Expenses.findByIdAndDelete(id);
         if (!expense) {
-            return res.status(404).send({ error: "Venta no encontrada" });
+            return res.status(404).send({ error: "Gasto no encontrado" });
         }
-        res.status(200).send({ mensaje: "Venta eliminada exitosamente" });
+        res.status(200).send({ mensaje: "Gasto eliminado exitosamente" });
     } catch (error) {
         res.status(500).send({ error: "Error interno del servidor" });
     }
@@ -66,19 +64,16 @@ const editExpense = async (req, res) => {
         date: req.body.date,
         voucherNumber: req.body.voucherNumber,
         provider: req.body.provider,
-        amount: req.body.amount,
-        description: req.body.description,
-        additionalDescription: req.body.additionalDescription,
-        unitPrice: req.body.unitPrice,
+        items: req.body.items,
         wayToPay: req.body.wayToPay,
         payment: req.body.payment
     }
     try {
         const updatedExpense = await Expenses.findByIdAndUpdate(id, newExpenseData, { new: true });
         if (!updatedExpense) {
-            return res.status(404).send({ mensaje: "No se encontró la venta" });
+            return res.status(404).send({ mensaje: "No se encontró el gasto" });
         }
-        res.status(200).send({ mensaje: "Venta modificada con éxito", venta: updatedExpense });
+        res.status(200).send({ mensaje: "Gasto modificado con éxito", gasto: updatedExpense });
     } catch (error) {
         res.status(500).send({ error: "Error interno del servidor" });
     }
