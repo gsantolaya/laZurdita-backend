@@ -46,6 +46,10 @@ const saleSchema = new Schema({
         type: Date,
         required: true,
     },
+    number: {
+        type: Number,
+        required: true
+    },
     client: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,

@@ -31,6 +31,7 @@ const createSale = async (req, res) => {
         const newSale = {
             user: req.body.user,
             date: req.body.date,
+            number: req.body.number,
             client: req.body.client,
             type: req.body.type,
             products: req.body.products,
@@ -63,6 +64,7 @@ const editSale = async (req, res) => {
     const newSaleData = {
         user: req.body.user,
         date: req.body.date,
+        number: req.body.number,
         client: req.body.client,
         type: req.body.type,
         products: req.body.products,
