@@ -60,7 +60,6 @@ const saleSchema = new Schema({
     products: [saleProductSchema],
     wayToPay: {
         type: String,
-        enum: ['efectivo', 'mercadoPago', 'transferencia'],
         required: false
     },
     payment: {
