@@ -33,7 +33,26 @@ const saleProductSchema = new Schema({
     unitPrice: {
         type: Number,
         required: true
+    }
+})
+
+const salePaymentSchema = new Schema({
+    date: {
+        type: Date,
+        required: true,
     },
+    wayToPay: {
+        type: String,
+        required: false
+    },
+    payment: {
+        type: Number,
+        required: false,
+    },
+    tip: {
+        type: Number,
+        required: false,
+    }
 })
 
 const saleSchema = new Schema({
@@ -62,18 +81,7 @@ const saleSchema = new Schema({
         required: true
     },
     products: [saleProductSchema],
-    wayToPay: {
-        type: String,
-        required: false
-    },
-    payment: {
-        type: Number,
-        required: false,
-    },
-    tip: {
-        type: Number,
-        required: false,
-    },
+    payments: [salePaymentSchema],
     status: {
         type: String,
         enum: ['completed', 'pending'],

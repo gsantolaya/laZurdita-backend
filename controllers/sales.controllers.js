@@ -69,7 +69,7 @@ const editSale = async (req, res) => {
         type: req.body.type,
         products: req.body.products,
         wayToPay: req.body.wayToPay,
-        payment: req.body.payment,
+        payments: req.body.payments,
         tip: req.body.tip,
         status: req.body.status
     }
