@@ -34,7 +34,7 @@ const createExpense = async (req, res) => {
             provider: req.body.provider,
             items: req.body.items,
             wayToPay: req.body.wayToPay,
-            payment: req.body.payment
+            payments: req.body.payments
             }
         const expense = await Expenses.create(newExpense);
         res.status(201).send({ mensaje: "Gasto creado exitosamente", idExpense: expense._id });
@@ -66,7 +66,7 @@ const editExpense = async (req, res) => {
         provider: req.body.provider,
         items: req.body.items,
         wayToPay: req.body.wayToPay,
-        payment: req.body.payment
+        payments: req.body.payments
     }
     try {
         const updatedExpense = await Expenses.findByIdAndUpdate(id, newExpenseData, { new: true });

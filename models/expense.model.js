@@ -19,6 +19,21 @@ const expenseItemSchema = new Schema({
     }
 });
 
+const expensePaymentSchema = new Schema({
+    date: {
+        type: Date,
+        required: true,
+    },
+    wayToPay: {
+        type: String,
+        required: false
+    },
+    payment: {
+        type: Number,
+        required: false,
+    }
+})
+
 const expenseSchema = new Schema({
     date: {
         type: Date,
@@ -34,14 +49,8 @@ const expenseSchema = new Schema({
         required: true
     },
     items: [expenseItemSchema],
-    wayToPay: {
-        type: String,
-        required: true
-    },
-    payment: {
-        type: Number,
-        required: true
-    }
+    payments: [expensePaymentSchema],
+
 });
 
 const Expense = model("Expense", expenseSchema);
