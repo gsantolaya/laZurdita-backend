@@ -20,7 +20,7 @@ const expenseItemSchema = new Schema({
 });
 
 const expensePaymentSchema = new Schema({
-    date: {
+    paymentDate: {
         type: Date,
         required: true,
     },
