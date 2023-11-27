@@ -37,7 +37,7 @@ const saleProductSchema = new Schema({
 })
 
 const salePaymentSchema = new Schema({
-    date: {
+    paymentDate: {
         type: Date,
         required: true,
     },
